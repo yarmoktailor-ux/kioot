@@ -1,0 +1,6 @@
+// أضف لـfillable
+protected $fillable = ['name', 'email', 'password', 'tenant_id'];
+// علاقة المستخدم مع المتجر (tenant)
+public function tenant() {
+    return $this->belongsTo(Tenant::class);
+}
