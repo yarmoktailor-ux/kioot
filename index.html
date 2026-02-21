@@ -3,113 +3,161 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>متجر اليرموك الحديث | YarmokApp</title>
+    <title>اليرموك الحديث | Yarmok App 2026</title>
     <style>
-        :root { --gold: #c5a059; --dark: #000000; --gray: #f4f4f4; --text: #333; }
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; background: #fff; color: var(--text); overflow-x: hidden; }
+        :root { --gold: #c5a059; --dark: #000000; --bg: #fdfbf7; --text: #1a1a1a; --gray: #f4f4f4; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: var(--bg); margin: 0; color: var(--text); overflow-x: hidden; }
 
-        /* الهيدر الاحترافي */
-        .main-header { display: flex; justify-content: space-between; align-items: center; padding: 15px 20px; border-bottom: 1px solid #eee; sticky; top: 0; background: #fff; z-index: 100; }
-        .header-icons { display: flex; gap: 15px; align-items: center; }
-        .cart-btn { position: relative; cursor: pointer; }
-        .cart-count { position: absolute; -10px; -10px; background: var(--dark); color: #fff; font-size: 11px; width: 18px; height: 18px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+        /* الهيدر الفاخر */
+        .main-header { display: flex; justify-content: space-between; align-items: center; padding: 15px 20px; border-bottom: 2px solid var(--gold); position: sticky; top: 0; background: #fff; z-index: 1000; }
+        .header-title { font-weight: bold; font-size: 22px; letter-spacing: 1px; color: var(--dark); }
+        .header-icons { display: flex; gap: 20px; align-items: center; }
+        .cart-icon { position: relative; cursor: pointer; }
+        .cart-badge { position: absolute; top: -8px; right: -10px; background: var(--dark); color: white; font-size: 11px; width: 20px; height: 20px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
 
-        /* لوحة التحكم */
-        .admin-panel { position: fixed; bottom: 20px; left: 20px; z-index: 1000; }
-        .admin-btn { background: var(--dark); color: white; border: none; padding: 12px; border-radius: 50%; cursor: pointer; box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
-        .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 2000; align-items: center; justify-content: center; }
-        .modal-content { background: white; width: 90%; max-width: 500px; padding: 25px; border-radius: 15px; max-height: 85vh; overflow-y: auto; }
-        input, select, textarea { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ddd; border-radius: 8px; font-family: inherit; }
+        /* رسالة الترحيب */
+        .welcome-bar { background: var(--dark); color: var(--gold); padding: 10px; text-align: center; font-size: 13px; font-weight: bold; }
 
-        /* عرض المنتجات - ستايل العماري */
-        .product-feed { max-width: 600px; margin: auto; }
-        .product-item { margin-bottom: 20px; border-bottom: 8px solid var(--gray); background: #fff; }
+        /* التبويبات */
+        .main-tabs { display: flex; background: #fff; border-bottom: 1px solid #eee; }
+        .tab-btn { flex: 1; padding: 15px; border: none; cursor: pointer; font-weight: bold; background: #fff; color: #999; transition: 0.3s; border-bottom: 3px solid transparent; }
+        .tab-btn.active { color: var(--gold); border-bottom-color: var(--gold); }
+
+        .section { display: none; padding: 20px; max-width: 650px; margin: auto; }
+        .section.active { display: block; }
+
+        /* معلومات العميل والمقاسات */
+        .card-box { background: white; padding: 20px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); margin-bottom: 20px; border: 1px solid #eee; }
+        .input-group { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 15px; }
+        .input-group input { padding: 12px; border: 1px solid #ddd; border-radius: 8px; outline: none; }
+        .measure-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 10px; }
+        .measure-grid div { text-align: center; }
+        .measure-grid label { font-size: 11px; font-weight: bold; color: var(--gold); display: block; margin-bottom: 5px; }
+        .measure-grid input { width: 100%; padding: 8px; border: 1px solid #eee; border-radius: 5px; text-align: center; }
+
+        /* عرض المنتجات (ستايل العماري المدمج) */
+        .product-item { background: white; margin-bottom: 30px; border-radius: 20px; overflow: hidden; border-bottom: 10px solid var(--gray); }
         .product-item img { width: 100%; height: auto; display: block; }
-        .product-details { padding: 20px; }
-        .p-title { font-size: 24px; font-weight: bold; margin: 0; }
-        .p-price { font-size: 20px; color: #555; margin: 10px 0; }
+        .product-info { padding: 25px; }
+        .p-title { font-size: 26px; font-weight: bold; margin: 0; }
+        .p-price { font-size: 22px; color: var(--gold); font-weight: bold; margin: 10px 0; }
         
-        /* ميزات العماري: جدول المواصفات */
-        .specs-grid { background: var(--gray); border-radius: 10px; padding: 15px; margin: 15px 0; font-size: 14px; }
-        .spec-item { display: flex; margin-bottom: 5px; }
-        .spec-label { font-weight: bold; width: 100px; }
+        .specs-table { background: var(--gray); border-radius: 10px; padding: 15px; margin: 15px 0; font-size: 14px; }
+        .spec-line { display: flex; margin-bottom: 5px; }
+        .spec-label { font-weight: bold; width: 110px; }
 
-        /* ميزات العماري: اختيار الألوان والنوع */
-        .selector-label { display: block; font-weight: bold; margin: 15px 0 10px; }
-        .color-options { display: flex; gap: 10px; margin-bottom: 15px; }
-        .color-dot { width: 35px; height: 35px; border-radius: 50%; border: 2px solid #ddd; cursor: pointer; }
-        .color-dot.active { border-color: var(--dark); box-shadow: 0 0 5px rgba(0,0,0,0.3); }
+        /* ألوان وخيارات */
+        .color-dot { width: 35px; height: 35px; border-radius: 50%; border: 2px solid #ddd; cursor: pointer; display: inline-block; margin-left: 10px; }
+        .color-dot.active { border-color: var(--dark); }
+        .type-chips { display: flex; gap: 10px; margin: 15px 0; }
+        .chip { flex: 1; padding: 12px; border: 1px solid #ddd; border-radius: 8px; text-align: center; cursor: pointer; font-weight: bold; }
+        .chip.active { background: var(--dark); color: white; border-color: var(--dark); }
+
+        /* التحكم بالكمية وأزرار الأكشن */
+        .action-row { display: flex; gap: 10px; margin-top: 20px; }
+        .qty-stepper { display: flex; align-items: center; border: 1px solid #ddd; border-radius: 8px; overflow: hidden; }
+        .qty-stepper button { padding: 10px 15px; border: none; background: #eee; cursor: pointer; }
+        .qty-stepper input { width: 40px; text-align: center; border: none; font-weight: bold; }
+        .btn-black { flex: 1; padding: 15px; background: var(--dark); color: white; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; }
+        .btn-outline { flex: 1; padding: 15px; background: white; border: 2px solid var(--dark); border-radius: 8px; font-weight: bold; cursor: pointer; }
+
+        /* لوحة التحكم والسلة الجانبية */
+        .side-panel { position: fixed; left: -100%; top: 0; width: 320px; height: 100%; background: white; z-index: 3000; transition: 0.4s; box-shadow: 5px 0 20px rgba(0,0,0,0.2); padding: 20px; box-sizing: border-box; }
+        .side-panel.open { left: 0; }
+        .admin-trigger { position: fixed; bottom: 20px; right: 20px; background: var(--dark); color: white; border: none; width: 50px; height: 50px; border-radius: 50%; cursor: pointer; z-index: 1000; }
         
-        .type-selector { display: flex; gap: 10px; }
-        .type-btn { flex: 1; padding: 10px; border: 1px solid #ddd; border-radius: 5px; background: #fff; cursor: pointer; text-align: center; }
-        .type-btn.active { background: var(--dark); color: white; border-color: var(--dark); }
+        .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 4000; align-items: center; justify-content: center; }
+        .modal-content { background: white; width: 90%; max-width: 500px; padding: 25px; border-radius: 20px; max-height: 90vh; overflow-y: auto; }
+        .modal-content input, .modal-content textarea { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; }
 
-        /* ميزات العماري: الكمية وأزرار الشراء */
-        .action-area { margin-top: 25px; }
-        .qty-selector { display: flex; align-items: center; border: 1px solid #ddd; width: fit-content; border-radius: 5px; margin-bottom: 15px; }
-        .qty-selector button { padding: 10px 15px; border: none; background: none; cursor: pointer; font-size: 18px; }
-        .qty-selector input { width: 40px; border: none; text-align: center; margin: 0; font-weight: bold; }
+        /* خيارات التفصيل في السلة */
+        .tailor-options { margin-top: 15px; border-top: 1px dashed #ddd; padding-top: 15px; }
+        .opt-select { width: 100%; padding: 8px; margin-bottom: 5px; border-radius: 5px; border: 1px solid #eee; font-size: 12px; }
 
-        .btn-add-cart { width: 100%; padding: 15px; background: #fff; border: 2px solid var(--dark); font-weight: bold; cursor: pointer; border-radius: 8px; margin-bottom: 10px; }
-        .btn-buy-now { width: 100%; padding: 15px; background: var(--dark); color: #fff; border: none; font-weight: bold; cursor: pointer; border-radius: 8px; }
-
-        /* السلة الجانبية */
-        .side-cart { position: fixed; left: -100%; top: 0; width: 320px; height: 100%; background: #fff; z-index: 3000; transition: 0.3s; box-shadow: 5px 0 15px rgba(0,0,0,0.1); padding: 20px; }
-        .side-cart.open { left: 0; }
-        .cart-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eee; padding-bottom: 15px; }
-        .cart-items-list { margin-top: 20px; height: 70vh; overflow-y: auto; }
-        .cart-item { display: flex; gap: 10px; margin-bottom: 15px; border-bottom: 1px solid #f9f9f9; padding-bottom: 10px; }
-        .cart-item img { width: 60px; height: 60px; border-radius: 5px; object-fit: cover; }
     </style>
 </head>
 <body>
 
+    <div class="welcome-bar">✨ خياط اليرموك: نصنع هيبتك بدقة "العماري" وخبرة السنين ✨</div>
+
     <header class="main-header">
         <div class="header-icons">
-            <div class="cart-btn" onclick="toggleCart()">
-                <span class="cart-count" id="cartCountBadge">0</span>
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+            <div class="cart-icon" onclick="toggleCart()">
+                <span class="cart-badge" id="cartBadge">0</span>
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
             </div>
             <span>🔍</span>
         </div>
-        <div style="font-weight: bold; font-size: 22px; letter-spacing: 1px;">YARMOK</div>
-        <div style="font-size: 24px;">☰</div>
+        <div class="header-title">YARMOK</div>
+        <div style="font-size: 24px; cursor: pointer;">☰</div>
     </header>
 
-    <main id="mainDisplay" class="product-feed">
-        </main>
-
-    <div class="admin-panel">
-        <button class="admin-btn" onclick="openModal()">⚙️</button>
+    <div class="main-tabs">
+        <button class="tab-btn active" onclick="switchTab('tailor', this)">التفصيل والقياس</button>
+        <button class="tab-btn" onclick="switchTab('ready', this)">الجاهز والأقمشة</button>
     </div>
 
-    <div id="adminModal" class="modal">
-        <div class="modal-content">
-            <h3 style="text-align:center;">إضافة منتج "هيبة اليرموك"</h3>
-            <input type="text" id="inTitle" placeholder="اسم القماش (مثلاً: سميراميس ياباني)">
-            <input type="number" id="inPrice" placeholder="السعر (YER)">
-            <input type="text" id="inOrigin" placeholder="بلد الصنع (اليابان، كوريا..)">
-            <textarea id="inDesc" placeholder="مميزات القماش (واقف، ثقيل، غير شفاف..)"></textarea>
-            <input type="file" id="inFile" onchange="handleImg(this)">
-            <div style="display: flex; gap: 10px;">
-                <button onclick="addProduct()" style="flex:2; background:var(--dark); color:white; padding:12px; border-radius:8px; border:none;">نشر المنتج</button>
-                <button onclick="closeModal()" style="flex:1; background:#eee; border:none; border-radius:8px;">إلغاء</button>
+    <section id="section_tailor" class="section active">
+        <div class="card-box">
+            <h3 style="margin-top: 0; color: var(--gold);">📋 بيانات العميل</h3>
+            <div class="input-group">
+                <input type="text" id="c_name" placeholder="اسم العميل">
+                <input type="tel" id="c_phone" placeholder="رقم الجوال">
+            </div>
+            <h4 style="margin: 15px 0 5px; font-size: 14px;">📏 سجل المقاسات (بالهنش)</h4>
+            <div class="measure-grid">
+                <div><label>الطول</label><input type="number" step="0.1" class="m-val"></div>
+                <div><label>الكتف</label><input type="number" step="0.1" class="m-val"></div>
+                <div><label>اليد</label><input type="number" step="0.1" class="m-val"></div>
+                <div><label>الصدر</label><input type="number" step="0.1" class="m-val"></div>
+                <div><label>الرقبة</label><input type="number" step="0.1" class="m-val"></div>
+                <div><label>الكبك</label><input type="number" step="0.1" class="m-val"></div>
+                <div><label>الخطوة</label><input type="number" step="0.1" class="m-val"></div>
+                <div><label>وسع اليد</label><input type="number" step="0.1" class="m-val"></div>
             </div>
         </div>
-    </div>
-
-    <div id="sideCart" class="side-cart">
-        <div class="cart-header">
-            <h3 style="margin:0;">سلة المشتريات</h3>
-            <button onclick="toggleCart()" style="border:none; background:none; font-size:25px;">&times;</button>
+        <div id="tailor_list">
+             <p style="text-align: center; color: #999; padding: 20px;">اختر القماش من قسم "الجاهز" لبدء التفصيل..</p>
         </div>
-        <div id="cartItemsList" class="cart-items-list"></div>
-        <div style="padding-top:20px; border-top:1px solid #eee;">
-            <div style="display:flex; justify-content:space-between; font-weight:bold; margin-bottom:20px;">
-                <span>الإجمالي:</span>
+    </section>
+
+    <section id="section_ready" class="section">
+        <div id="productDisplay">
+            </div>
+    </section>
+
+    <div id="sideCart" class="side-panel">
+        <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #eee; padding-bottom:15px;">
+            <h3 style="margin:0;">سلة الأناقة</h3>
+            <button onclick="toggleCart()" style="background:none; border:none; font-size:24px;">&times;</button>
+        </div>
+        <div id="cartItemsList" style="margin-top:20px; height:70vh; overflow-y:auto;"></div>
+        <div style="position: absolute; bottom: 20px; left: 20px; right: 20px; border-top: 1px solid #eee; padding-top: 15px;">
+            <div style="display:flex; justify-content:space-between; font-weight:bold; margin-bottom:15px;">
+                <span>الإجمالي الاستثماري:</span>
                 <span id="cartTotal">0</span> YER
             </div>
-            <button class="btn-buy-now" onclick="alert('تم إرسال طلبك لخياط اليرموك!')">إتمام الطلب</button>
+            <button class="btn-black" style="width:100%" onclick="submitFinalOrder()">تأكيد هيبة الطلب</button>
+        </div>
+    </div>
+
+    <button class="admin-trigger" onclick="openAdmin()">⚙️</button>
+    <div id="adminModal" class="modal">
+        <div class="modal-content">
+            <h3 style="text-align:center; color:var(--gold);">إضافة منتج "اليرموك الحديث"</h3>
+            <select id="adm_cat" style="width:100%; padding:12px; margin-bottom:10px; border-radius:8px;">
+                <option value="fabric">قماش (للتفصيل)</option>
+                <option value="ready">منتج جاهز</option>
+            </select>
+            <input type="text" id="adm_title" placeholder="اسم المنتج (مثلاً: سميراميس ياباني)">
+            <input type="number" id="adm_price" placeholder="السعر (YER)">
+            <input type="text" id="adm_origin" placeholder="بلد الصنع (اليابان، كوريا..)">
+            <textarea id="adm_desc" placeholder="المميزات (واقف، ثقيل، خيوط طولية..)"></textarea>
+            <input type="file" id="adm_file" onchange="handleFile(this)">
+            <div style="display:flex; gap:10px; margin-top:10px;">
+                <button onclick="saveProduct()" class="btn-black">نشر المنتج</button>
+                <button onclick="closeAdmin()" class="btn-outline" style="border-color:#eee;">إلغاء</button>
+            </div>
         </div>
     </div>
 
@@ -118,66 +166,74 @@
         let cart = [];
         let currentImg = "";
 
-        function openModal() { document.getElementById('adminModal').style.display = 'flex'; }
-        function closeModal() { document.getElementById('adminModal').style.display = 'none'; }
-
-        function handleImg(input) {
-            let reader = new FileReader();
-            reader.onload = (e) => currentImg = e.target.result;
-            reader.readAsDataURL(input.files[0]);
+        // تبديل الأقسام
+        function switchTab(id, btn) {
+            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.getElementById('section_'+id).classList.add('active');
+            btn.classList.add('active');
         }
 
-        function addProduct() {
-            const title = document.getElementById('inTitle').value;
-            const price = document.getElementById('inPrice').value;
-            const origin = document.getElementById('inOrigin').value;
-            const desc = document.getElementById('inDesc').value;
-
-            if(!title || !price || !currentImg) return alert("أكمل البيانات أولاً");
-
-            const product = { id: Date.now(), title, price: parseInt(price), origin, desc, img: currentImg };
-            db.push(product);
-            render();
-            closeModal();
+        // لوحة التحكم
+        function openAdmin() { document.getElementById('adminModal').style.display='flex'; }
+        function closeAdmin() { document.getElementById('adminModal').style.display='none'; }
+        function handleFile(input) {
+            let r = new FileReader();
+            r.onload = (e) => currentImg = e.target.result;
+            r.readAsDataURL(input.files[0]);
         }
 
-        function render() {
-            const container = document.getElementById('mainDisplay');
-            container.innerHTML = db.map(p => `
+        function saveProduct() {
+            const title = document.getElementById('adm_title').value;
+            const price = document.getElementById('adm_price').value;
+            const cat = document.getElementById('adm_cat').value;
+            const origin = document.getElementById('adm_origin').value || 'غير محدد';
+            const desc = document.getElementById('adm_desc').value || 'قماش فاخر';
+
+            if(!title || !price || !currentImg) return alert("أكمل البيانات");
+
+            db.push({ id: Date.now(), title, price: parseInt(price), cat, origin, desc, img: currentImg });
+            renderProducts();
+            closeAdmin();
+        }
+
+        function renderProducts() {
+            const display = document.getElementById('productDisplay');
+            display.innerHTML = db.map(p => `
                 <div class="product-item">
                     <img src="${p.img}">
-                    <div class="product-details">
-                        <p style="color:#888; font-size:12px; margin-bottom:5px;">الرئيسية > أقمشة رجالية</p>
+                    <div class="product-info">
+                        <p style="color:#888; font-size:12px; margin-bottom:5px;">الرئيسية > ${p.cat === 'fabric' ? 'أقمشة تفصيل' : 'جاهز'}</p>
                         <h2 class="p-title">${p.title}</h2>
                         <div class="p-price">${p.price.toLocaleString()} YER</div>
                         
-                        <div class="specs-grid">
-                            <div class="spec-item"><span class="spec-label">📍 بلد الصنع:</span> ${p.origin}</div>
-                            <div class="spec-item"><span class="spec-label">🧵 المميزات:</span> ${p.desc}</div>
-                            <div class="spec-item"><span class="spec-label">📏 العرض:</span> 58 إنش (عرضين)</div>
+                        <div class="specs-table">
+                            <div class="spec-line"><span class="spec-label">📍 بلد الصنع:</span> ${p.origin}</div>
+                            <div class="spec-line"><span class="spec-label">🧵 المميزات:</span> ${p.desc}</div>
+                            <div class="spec-line"><span class="spec-label">📏 العرض:</span> 58 إنش (عرضين)</div>
                         </div>
 
-                        <label class="selector-label">اختر اللون:</label>
-                        <div class="color-options">
+                        <label style="font-weight:bold; font-size:14px;">اختر اللون:</label>
+                        <div style="margin:10px 0;">
                             <div class="color-dot active" style="background:#fff;"></div>
                             <div class="color-dot" style="background:#f5f5dc;"></div>
                             <div class="color-dot" style="background:#ece0d1;"></div>
                         </div>
 
-                        <label class="selector-label">اختر النوع:</label>
-                        <div class="type-selector">
-                            <div class="type-btn active">متر</div>
-                            <div class="type-btn">طاقة كاملة</div>
+                        <label style="font-weight:bold; font-size:14px;">الخيار المختص:</label>
+                        <div class="type-chips">
+                            <div class="chip active">متر / قطعة</div>
+                            <div class="chip">طاقة كاملة</div>
                         </div>
 
-                        <div class="action-area">
-                            <div class="qty-selector">
+                        <div class="action-row">
+                            <div class="qty-stepper">
                                 <button onclick="this.nextElementSibling.value++">+</button>
                                 <input type="number" value="1" readonly>
                                 <button onclick="if(this.previousElementSibling.value > 1) this.previousElementSibling.value--">−</button>
                             </div>
-                            <button class="btn-add-cart" onclick="addToCart(${p.id})">إضافة للسلة 🛒</button>
-                            <button class="btn-buy-now" onclick="addToCart(${p.id}); toggleCart();">اشتري الآن</button>
+                            <button class="btn-outline" onclick="addToCart(${p.id}, 'add')">إضافة للسلة 🛒</button>
+                            <button class="btn-black" onclick="addToCart(${p.id}, 'buy')">اشتري الآن</button>
                         </div>
                     </div>
                 </div>
@@ -186,29 +242,53 @@
 
         function toggleCart() { document.getElementById('sideCart').classList.toggle('open'); }
 
-        function addToCart(id) {
-            const item = db.find(x => x.id === id);
-            cart.push(item);
+        function addToCart(id, type) {
+            const product = db.find(x => x.id === id);
+            cart.push({...product});
             updateCartUI();
+            if(type === 'buy') toggleCart();
+            else alert("تمت الإضافة للسلة");
         }
 
         function updateCartUI() {
-            document.getElementById('cartCountBadge').innerText = cart.length;
+            document.getElementById('cartBadge').innerText = cart.length;
             const list = document.getElementById('cartItemsList');
             let total = 0;
-            list.innerHTML = cart.map(i => {
-                total += i.price;
+            list.innerHTML = cart.map((item, index) => {
+                total += item.price;
                 return `
-                    <div class="cart-item">
-                        <img src="${i.img}">
-                        <div>
-                            <div style="font-weight:bold;">${i.title}</div>
-                            <div style="color:var(--gold);">${i.price} YER</div>
+                    <div style="display:flex; gap:10px; margin-bottom:15px; border-bottom:1px solid #f9f9f9; padding-bottom:10px;">
+                        <img src="${item.img}" style="width:60px; height:60px; border-radius:5px; object-fit:cover;">
+                        <div style="flex:1">
+                            <div style="font-weight:bold; font-size:14px;">${item.title}</div>
+                            <div style="color:var(--gold); font-size:13px;">${item.price} YER</div>
+                            ${item.cat === 'fabric' ? `
+                                <div class="tailor-options">
+                                    <select class="opt-select"><option>رقبة: قلاب ملكي</option><option>رقبة: صيني</option></select>
+                                    <select class="opt-select"><option>يد: كبك</option><option>يد: سادة</option></select>
+                                </div>
+                            ` : ''}
                         </div>
+                        <button onclick="cart.splice(${index},1); updateCartUI();" style="border:none; background:none; color:red;">🗑️</button>
                     </div>
                 `;
             }).join('');
             document.getElementById('cartTotal').innerText = total.toLocaleString();
+        }
+
+        function submitFinalOrder() {
+            const name = document.getElementById('c_name').value;
+            if(!name || cart.length === 0) return alert("يرجى إدخال الاسم واختيار منتجات");
+            
+            let msg = `طلب جديد من: ${name}\nالرقم: ${document.getElementById('c_phone').value}\n\nالمنتجات:\n`;
+            cart.forEach(i => msg += `- ${i.title} (${i.price} YER)\n`);
+            msg += `\nالإجمالي: ${document.getElementById('cartTotal').innerText} YER`;
+            
+            console.log("إرسال الطلب:", msg);
+            alert("تم إرسال طلبك لخياط اليرموك بنجاح!");
+            cart = [];
+            updateCartUI();
+            toggleCart();
         }
     </script>
 </body>
