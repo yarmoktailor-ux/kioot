@@ -3,133 +3,129 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>لوحة تحكم اليرموك - إيلين</title>
+    <title>منشئ المتاجر | لوحة التحكم</title>
     <style>
         :root {
-            --bg-dark: #1e293b;
-            --sidebar-dark: #111827;
-            --accent-teal: #14b8a6;
-            --text-white: #f8fafc;
-            --card-bg: #33415550;
+            --bg: #0f172a;
+            --sidebar: #1e293b;
+            --accent: #38bdf8;
+            --text: #f1f5f9;
+            --success: #22c55e;
         }
         body {
-            font-family: 'Segoe UI', sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
             margin: 0;
             display: flex;
-            background-color: var(--bg-dark);
-            color: var(--text-white);
         }
-        /* القائمة الجانبية - Sidebar */
+        /* Sidebar */
         .sidebar {
-            width: 260px;
-            background-color: var(--sidebar-dark);
+            width: 280px;
+            background: var(--sidebar);
             height: 100vh;
             padding: 20px;
-            box-sizing: border-box;
             position: fixed;
+            border-left: 1px solid #334155;
         }
-        .logo {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: var(--accent-teal);
-            margin-bottom: 30px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .menu-item {
-            padding: 12px;
+        .sidebar h2 { color: var(--accent); border-bottom: 1px solid #334155; padding-bottom: 10px; }
+        .menu-link {
+            padding: 15px;
+            display: block;
+            color: var(--text);
+            text-decoration: none;
+            border-radius: 8px;
             margin-bottom: 5px;
+        }
+        .menu-link:hover { background: #334155; }
+        .active { background: var(--accent); color: var(--bg); font-weight: bold; }
+
+        /* Main Content */
+        .content { margin-right: 280px; padding: 40px; width: 100%; }
+        .card {
+            background: var(--sidebar);
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
+            max-width: 600px;
+        }
+        .form-group { margin-bottom: 20px; }
+        label { display: block; margin-bottom: 8px; color: #94a3b8; }
+        input, select {
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid #334155;
+            background: var(--bg);
+            color: white;
+            box-sizing: border-box;
+        }
+        .btn-create {
+            background: var(--success);
+            color: white;
+            border: none;
+            padding: 15px 30px;
             border-radius: 8px;
             cursor: pointer;
-            transition: 0.3s;
-            display: flex;
-            justify-content: space-between;
-        }
-        .menu-item:hover, .active {
-            background-color: var(--card-bg);
-        }
-        /* المحتوى الرئيسي */
-        .main-content {
-            margin-right: 260px;
-            padding: 30px;
+            font-size: 1rem;
             width: 100%;
         }
-        .header-title {
-            margin-bottom: 30px;
-        }
-        .header-title h1 { font-size: 1.8rem; margin: 0; }
-        .header-title p { color: #94a3b8; margin: 5px 0; }
-
-        /* الكروت الإحصائية */
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-        }
-        .stat-card {
-            background: var(--card-bg);
-            padding: 20px;
-            border-radius: 12px;
-            text-align: center;
-            border: 1px solid #475569;
-        }
-        .stat-card h3 { font-size: 0.9rem; color: #cbd5e1; margin-bottom: 10px; }
-        .stat-card .value { font-size: 1.5rem; font-weight: bold; }
-
-        .pro-badge {
-            background: #eab308;
-            color: black;
-            font-size: 0.7rem;
-            padding: 2px 6px;
-            border-radius: 4px;
-            font-weight: bold;
+        .store-status {
+            margin-top: 30px;
+            padding: 15px;
+            background: rgba(56, 189, 248, 0.1);
+            border: 1px dashed var(--accent);
+            border-radius: 8px;
+            display: none; /* يظهر عند الضغط على إنشاء */
         }
     </style>
 </head>
 <body>
 
     <div class="sidebar">
-        <div class="logo">
-            <span>إيلين</span>
-        </div>
-        <div class="menu-item active">لوحة التحكم</div>
-        <div class="menu-item">الطلبات <span>⌄</span></div>
-        <div class="menu-item">الكتالوج <span>⌄</span></div>
-        <div class="menu-item">العملاء <span>⌄</span></div>
-        <div class="menu-item">إعدادات الشحن</div>
-        <div class="menu-item">تخصيص الثيم <span class="pro-badge">PRO</span></div>
-        
-        <div style="margin-top: 50px; border-top: 1px solid #334155; padding-top: 20px;">
-            <p style="font-size: 0.8rem; color: #94a3b8;">اليرموك للخياطة الرجالية</p>
+        <h2>منشئ المتاجر v1</h2>
+        <a href="#" class="menu-link active">إنشاء متجر جديد</a>
+        <a href="#" class="menu-link">متاجرى الحالية</a>
+        <a href="#" class="menu-link">إحصائيات المنصة</a>
+        <a href="#" class="menu-link">الإعدادات البرمجية</a>
+    </div>
+
+    <div class="content">
+        <h1>مرحباً بك في معمل المتاجر</h1>
+        <p style="color: #94a3b8;">من هنا يمكنك إطلاق متجر جديد لمحل اليرموك أو أي علامة تجارية أخرى في ثوانٍ.</p>
+
+        <div class="card">
+            <h3>بيانات المتجر الجديد</h3>
+            <div class="form-group">
+                <label>اسم المتجر</label>
+                <input type="text" placeholder="مثلاً: اليرموك للخياطة الرجالية">
+            </div>
+            <div class="form-group">
+                <label>رابط المتجر (Subdomain)</label>
+                <input type="text" placeholder="yarmok-tailor">
+            </div>
+            <div class="form-group">
+                <label>نوع النشاط</label>
+                <select>
+                    <option>خياطة وتفصيل</option>
+                    <option>ملابس جاهزة</option>
+                    <option>بيع أقمشة</option>
+                </select>
+            </div>
+            <button class="btn-create" onclick="showStatus()">تفعيل المتجر الآن</button>
+
+            <div id="status" class="store-status">
+                ✅ جاري تهيئة قاعدة البيانات... تم إنشاء رابط: <br>
+                <strong>https://yarmok-tailor.mystore.com</strong>
+            </div>
         </div>
     </div>
 
-    <div class="main-content">
-        <div class="header-title">
-            <h1>لوحة التحكم</h1>
-            <p>صباح الخير، اليرموك للخياطة الرجالية</p>
-        </div>
-
-        <div class="stats-grid">
-            <div class="stat-card">
-                <h3>اجمالي مبيعات المتجر</h3>
-                <div class="value">0.00 ر.ي</div>
-            </div>
-            <div class="stat-card">
-                <h3>اجمالي العملاء</h3>
-                <div class="value">0</div>
-            </div>
-            <div class="stat-card">
-                <h3>اجمالي الطلبات</h3>
-                <div class="value">0</div>
-            </div>
-            <div class="stat-card">
-                <h3>اجمالي المنتجات</h3>
-                <div class="value">7</div>
-            </div>
-        </div>
-    </div>
+    <script>
+        function showStatus() {
+            document.getElementById('status').style.display = 'block';
+        }
+    </script>
 
 </body>
 </html>
